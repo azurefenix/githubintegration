@@ -1,8 +1,9 @@
 {
-    "name": "githubIntegration",
+    "name": "unit5-mock_pt",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "multiplayer": "*"
     },
     "files": [
         "main.blocks",
