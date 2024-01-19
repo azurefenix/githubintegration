@@ -1,3 +1,22 @@
+function locPossibilities () {
+    let tileMapLastCol = 0
+    let tilemapLastRow = 0
+    adjLoc = []
+    currentLoc = cursor.tilemapLocation()
+    if (currentLoc.row > 0 && cursor.tileKindAt(TileDirection.Top, assets.tile`transparency16`)) {
+        adjLoc.push(tiles.getTileLocation(currentLoc.column, currentLoc.row - 1))
+    }
+    if (currentLoc.row < tilemapLastRow && cursor.tileKindAt(TileDirection.Bottom, assets.tile`transparency16`)) {
+        adjLoc.push(tiles.getTileLocation(currentLoc.column, currentLoc.row + 1))
+    }
+    if (currentLoc.column > 0 && cursor.tileKindAt(TileDirection.Left, assets.tile`transparency16`)) {
+        adjLoc.push(tiles.getTileLocation(currentLoc.column - 1, currentLoc.row))
+    }
+    if (currentLoc.column < tileMapLastCol && cursor.tileKindAt(TileDirection.Right, assets.tile`transparency16`)) {
+        adjLoc.push(tiles.getTileLocation(currentLoc.column + 1, currentLoc.row))
+    }
+    return adjLoc
+}
 function createMaze () {
     tiles.setCurrentTilemap(tilemap`level1`)
     cursor = sprites.create(img`
@@ -24,18 +43,20 @@ function createMaze () {
         currentTile = visitLoc.pop()
         tiles.placeOnTile(cursor, currentTile)
         tiles.setTileAt(currentTile, assets.tile`myTile`)
-        possibleLocs = 0
+        possibleLocs = locPossibilities()
         while (possibleLocs.length > 0) {
         	
         }
     }
 }
-let possibleLocs = 0
+let possibleLocs: tiles.Location[] = []
 let currentTile: tiles.Location = null
 let visitLoc: tiles.Location[] = []
 let cursor: Sprite = null
-let score2 = 0
+let currentLoc: tiles.Location = null
+let adjLoc: tiles.Location[] = []
 let score1 = 0
+let score2 = 0
 createMaze()
 let p1 = sprites.create(img`
     e e e . . . . e e e . . . . 
