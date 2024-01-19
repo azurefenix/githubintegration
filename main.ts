@@ -45,7 +45,7 @@ function createMaze () {
         tiles.setTileAt(currentTile, assets.tile`myTile`)
         possibleLocs = locPossibilities()
         while (possibleLocs.length > 0) {
-        	
+            tiles.placeOnTile(cursor, possibleLocs.removeAt(randint(0, possibleLocs.length - 1)))
         }
     }
 }
