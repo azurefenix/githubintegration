@@ -1,6 +1,41 @@
 function createMaze () {
     tiles.setCurrentTilemap(tilemap`level1`)
+    cursor = sprites.create(img`
+        c c . . . . . . . . . . . . c c 
+        c . . . . . . . . . . . . . . c 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        c . . . . . . . . . . . . . . c 
+        c c . . . . . . . . . . . . c c 
+        `, SpriteKind.Player)
+    tiles.placeOnTile(cursor, tiles.getTileLocation(0, 0))
+    visitLoc = [cursor.tilemapLocation()]
+    while (visitLoc.length > 0) {
+        currentTile = visitLoc.pop()
+        tiles.placeOnTile(cursor, currentTile)
+        tiles.setTileAt(currentTile, assets.tile`myTile`)
+        possibleLocs = 0
+        while (possibleLocs.length > 0) {
+        	
+        }
+    }
 }
+let possibleLocs = 0
+let currentTile: tiles.Location = null
+let visitLoc: tiles.Location[] = []
+let cursor: Sprite = null
+let score2 = 0
+let score1 = 0
 createMaze()
 let p1 = sprites.create(img`
     e e e . . . . e e e . . . . 
@@ -57,8 +92,6 @@ let cam = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
 scene.cameraFollowSprite(cam)
-let score1 = 0
-let score2 = 0
 game.onUpdate(function () {
     cam.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
 })
