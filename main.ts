@@ -9,13 +9,13 @@ function locPossibilities () {
     if (currentLoc.row > 0 && cursor.tileKindAt(TileDirection.Top, assets.tile`transparency16`)) {
         adjLoc.push(tiles.getTileLocation(currentLoc.column, currentLoc.row - 1))
     }
-    if (currentLoc.row < 29 && cursor.tileKindAt(TileDirection.Bottom, assets.tile`transparency16`)) {
+    if (currentLoc.row < 27 && cursor.tileKindAt(TileDirection.Bottom, assets.tile`transparency16`)) {
         adjLoc.push(tiles.getTileLocation(currentLoc.column, currentLoc.row + 1))
     }
     if (currentLoc.column > 0 && cursor.tileKindAt(TileDirection.Left, assets.tile`transparency16`)) {
         adjLoc.push(tiles.getTileLocation(currentLoc.column - 1, currentLoc.row))
     }
-    if (currentLoc.column < 29 && cursor.tileKindAt(TileDirection.Right, assets.tile`transparency16`)) {
+    if (currentLoc.column < 23 && cursor.tileKindAt(TileDirection.Right, assets.tile`transparency16`)) {
         adjLoc.push(tiles.getTileLocation(currentLoc.column + 1, currentLoc.row))
     }
     return adjLoc
@@ -77,22 +77,22 @@ function createMaze () {
     }
 }
 info.player1.onScore(10, function () {
-    game.splash("Player 2 wins!")
+    game.splash("Player 1 wins!")
     pause(2000)
     game.reset()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
-    if (sprite == p1) {
-        info.player1.changeScoreBy(1)
-    } else {
-        info.player2.changeScoreBy(1)
-    }
     for (let value of prizeLoc) {
         while (value == prize.tilemapLocation()) {
             tiles.placeOnRandomTile(prize, assets.tile`myTile`)
         }
     }
     prizeLoc.push(prize.tilemapLocation())
+    if (sprite == p1) {
+        info.player1.changeScoreBy(1)
+    } else {
+        info.player2.changeScoreBy(1)
+    }
 })
 let wallTiles: tiles.Location[] = []
 let count = 0
@@ -107,7 +107,7 @@ let prizeLoc: tiles.Location[] = []
 let prize: Sprite = null
 let p1: Sprite = null
 namespace userconfig {
-    export const ARCADE_SCREEN_WIDTH = 320
+    export const ARCADE_SCREEN_WIDTH = 300
     export const ARCADE_SCREEN_HEIGHT = 240
 }
 info.player1.setScore(0)
