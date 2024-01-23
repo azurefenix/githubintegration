@@ -1,16 +1,21 @@
+info.player2.onScore(10, function () {
+    game.splash("Player 2 wins!")
+    pause(2000)
+    game.reset()
+})
 function locPossibilities () {
     adjLoc = []
     currentLoc = cursor.tilemapLocation()
     if (currentLoc.row > 0 && cursor.tileKindAt(TileDirection.Top, assets.tile`transparency16`)) {
         adjLoc.push(tiles.getTileLocation(currentLoc.column, currentLoc.row - 1))
     }
-    if (currentLoc.row < 35 && cursor.tileKindAt(TileDirection.Bottom, assets.tile`transparency16`)) {
+    if (currentLoc.row < 29 && cursor.tileKindAt(TileDirection.Bottom, assets.tile`transparency16`)) {
         adjLoc.push(tiles.getTileLocation(currentLoc.column, currentLoc.row + 1))
     }
     if (currentLoc.column > 0 && cursor.tileKindAt(TileDirection.Left, assets.tile`transparency16`)) {
         adjLoc.push(tiles.getTileLocation(currentLoc.column - 1, currentLoc.row))
     }
-    if (currentLoc.column < 35 && cursor.tileKindAt(TileDirection.Right, assets.tile`transparency16`)) {
+    if (currentLoc.column < 29 && cursor.tileKindAt(TileDirection.Right, assets.tile`transparency16`)) {
         adjLoc.push(tiles.getTileLocation(currentLoc.column + 1, currentLoc.row))
     }
     return adjLoc
@@ -71,6 +76,24 @@ function createMaze () {
         tiles.setWallAt(wallTile, true)
     }
 }
+info.player1.onScore(10, function () {
+    game.splash("Player 2 wins!")
+    pause(2000)
+    game.reset()
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    if (sprite == p1) {
+        info.player1.changeScoreBy(1)
+    } else {
+        info.player2.changeScoreBy(1)
+    }
+    for (let value of prizeLoc) {
+        while (value == prize.tilemapLocation()) {
+            tiles.placeOnRandomTile(prize, assets.tile`myTile`)
+        }
+    }
+    prizeLoc.push(prize.tilemapLocation())
+})
 let wallTiles: tiles.Location[] = []
 let count = 0
 let temp: tiles.Location = null
@@ -80,13 +103,16 @@ let visitLoc: tiles.Location[] = []
 let cursor: Sprite = null
 let currentLoc: tiles.Location = null
 let adjLoc: tiles.Location[] = []
+let prizeLoc: tiles.Location[] = []
+let prize: Sprite = null
+let p1: Sprite = null
 namespace userconfig {
     export const ARCADE_SCREEN_WIDTH = 320
     export const ARCADE_SCREEN_HEIGHT = 240
 }
-let score2 = 0
-let score1 = 0
-let p1 = sprites.create(img`
+info.player1.setScore(0)
+info.player2.setScore(0)
+p1 = sprites.create(img`
     e e e . . . . e e e . . . . 
     c d d c . . c d d c . . . . 
     c b d d f f d d b c . . . . 
@@ -146,8 +172,9 @@ let cam = sprites.create(img`
     `, SpriteKind.Player)
 scene.cameraFollowSprite(cam)
 createMaze()
-let prize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
+prize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
 tiles.placeOnRandomTile(prize, assets.tile`myTile`)
+prizeLoc = [prize.tilemapLocation()]
 game.onUpdate(function () {
     cam.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
 })
