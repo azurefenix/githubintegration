@@ -22,6 +22,21 @@ c d 1 d d 1 d c . . 6 8 7 7 7 6
 . . 8 7 7 7 6 . . . 6 7 6 . . . 
 . . 8 8 8 6 . . . . 6 7 6 . . . 
 `;
+            case "image2":
+            case "myImage0":return img`
+. . b b . . 
+. c c c c . 
+. c c c c . 
+. . f f . . 
+. . c f . . 
+. . c c . . 
+. c c c c . 
+c b b c c c 
+c b c c c c 
+c c c c c c 
+c c c c c f 
+. c f f f . 
+`;
         }
         return null;
     })

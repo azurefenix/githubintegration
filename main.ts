@@ -80,6 +80,10 @@ let visitLoc: tiles.Location[] = []
 let cursor: Sprite = null
 let currentLoc: tiles.Location = null
 let adjLoc: tiles.Location[] = []
+namespace userconfig {
+    export const ARCADE_SCREEN_WIDTH = 320
+    export const ARCADE_SCREEN_HEIGHT = 240
+}
 let score2 = 0
 let score1 = 0
 let p1 = sprites.create(img`
@@ -100,6 +104,7 @@ let p1 = sprites.create(img`
     `, SpriteKind.Player)
 p1.setPosition(7, 7)
 controller.moveSprite(p1)
+p1.setStayInScreen(true)
 let p2 = sprites.create(img`
     . . . . f f f f f . . . . . . . 
     . . . f e e e e e f . . . . . . 
@@ -120,6 +125,7 @@ let p2 = sprites.create(img`
     `, SpriteKind.Player)
 p2.setPosition(7, 7)
 controller.player2.moveSprite(p2)
+p2.setStayInScreen(true)
 let cam = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -140,10 +146,8 @@ let cam = sprites.create(img`
     `, SpriteKind.Player)
 scene.cameraFollowSprite(cam)
 createMaze()
-namespace userconfig {
-    export const ARCADE_SCREEN_WIDTH = 320
-    export const ARCADE_SCREEN_HEIGHT = 240
-}
+let prize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
+tiles.placeOnRandomTile(prize, assets.tile`myTile`)
 game.onUpdate(function () {
     cam.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
 })
