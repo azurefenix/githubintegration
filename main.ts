@@ -3,13 +3,27 @@ info.player2.onScore(10, function () {
     pause(2000)
     game.reset()
 })
+function newPrizeLoc () {
+    while (true) {
+        tiles.placeOnRandomTile(prize, assets.tile`myTile`)
+        for (let value of prizeLoc) {
+            if (value == prize.tilemapLocation()) {
+                break;
+            }
+            if (prize.tilemapLocation() == p1.tilemapLocation() || prize.tilemapLocation() == p2.tilemapLocation()) {
+            	
+            }
+        }
+    }
+    prizeLoc.push(prize.tilemapLocation())
+}
 function locPossibilities () {
     adjLoc = []
     currentLoc = cursor.tilemapLocation()
     if (currentLoc.row > 0 && cursor.tileKindAt(TileDirection.Top, assets.tile`transparency16`)) {
         adjLoc.push(tiles.getTileLocation(currentLoc.column, currentLoc.row - 1))
     }
-    if (currentLoc.row < 27 && cursor.tileKindAt(TileDirection.Bottom, assets.tile`transparency16`)) {
+    if (currentLoc.row < 17 && cursor.tileKindAt(TileDirection.Bottom, assets.tile`transparency16`)) {
         adjLoc.push(tiles.getTileLocation(currentLoc.column, currentLoc.row + 1))
     }
     if (currentLoc.column > 0 && cursor.tileKindAt(TileDirection.Left, assets.tile`transparency16`)) {
@@ -82,12 +96,10 @@ info.player1.onScore(10, function () {
     game.reset()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
-    for (let value of prizeLoc) {
-        while (value == prize.tilemapLocation()) {
-            tiles.placeOnRandomTile(prize, assets.tile`myTile`)
-        }
-    }
-    prizeLoc.push(prize.tilemapLocation())
+    sprites.destroy(otherSprite, effects.bubbles, 500)
+    prize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
+    newPrizeLoc()
+    tiles.placeOnTile(prize, prizeLoc.pop())
     if (sprite == p1) {
         info.player1.changeScoreBy(1)
     } else {
@@ -105,6 +117,7 @@ let currentLoc: tiles.Location = null
 let adjLoc: tiles.Location[] = []
 let prizeLoc: tiles.Location[] = []
 let prize: Sprite = null
+let p2: Sprite = null
 let p1: Sprite = null
 namespace userconfig {
     export const ARCADE_SCREEN_WIDTH = 300
@@ -131,7 +144,7 @@ p1 = sprites.create(img`
 p1.setPosition(7, 7)
 controller.moveSprite(p1)
 p1.setStayInScreen(true)
-let p2 = sprites.create(img`
+p2 = sprites.create(img`
     . . . . f f f f f . . . . . . . 
     . . . f e e e e e f . . . . . . 
     . . f d d d d e e e f . . . . . 
