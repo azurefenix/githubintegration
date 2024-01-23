@@ -1,8 +1,3 @@
-info.player2.onScore(10, function () {
-    game.splash("Player 2 wins!")
-    pause(2000)
-    game.reset()
-})
 function newPrizeLoc () {
     while (true) {
         tiles.placeOnRandomTile(prize, assets.tile`myTile`)
@@ -90,7 +85,7 @@ function createMaze () {
         tiles.setWallAt(wallTile, true)
     }
 }
-info.player1.onScore(10, function () {
+info.player1.onScore(5, function () {
     game.splash("Player 1 wins!")
     pause(2000)
     game.reset()
@@ -105,6 +100,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     } else {
         info.player2.changeScoreBy(1)
     }
+})
+info.player2.onScore(5, function () {
+    game.splash("Player 2 wins!")
+    pause(2000)
+    game.reset()
 })
 let wallTiles: tiles.Location[] = []
 let count = 0
