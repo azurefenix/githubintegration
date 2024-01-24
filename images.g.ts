@@ -3,25 +3,6 @@ namespace myImages {
 
     helpers._registerFactory("image", function(name: string) {
         switch(helpers.stringTrim(name)) {
-            case "image1":
-            case "myImage":return img`
-. . . . . . . . . b b d d b b . 
-. . . . . . . . b 1 1 3 3 1 1 b 
-. . . . . . . . b 1 3 5 5 3 1 b 
-. . . . . . . . b d 3 5 5 3 d b 
-. b b d d b b . c 1 1 d d 1 1 c 
-b 1 1 3 3 1 1 b c d 1 d d 1 d c 
-b 1 3 5 5 3 1 b . c c 7 6 c c . 
-b d 3 5 5 3 d b . . 6 7 6 . . . 
-c 1 1 d d 1 1 c . . 6 6 8 8 8 6 
-c d 1 d d 1 d c . . 6 8 7 7 7 6 
-. c c 7 6 c c . . . 8 7 7 7 6 . 
-. . 6 7 6 . . . . . 8 8 8 6 . . 
-. . 6 6 8 8 8 6 . . 8 6 6 . . . 
-. . 6 8 7 7 7 6 . . 6 7 6 . . . 
-. . 8 7 7 7 6 . . . 6 7 6 . . . 
-. . 8 8 8 6 . . . . 6 7 6 . . . 
-`;
             case "image2":
             case "myImage0":return img`
 . . b b . . 
@@ -36,6 +17,44 @@ c b c c c c
 c c c c c c 
 c c c c c f 
 . c f f f . 
+`;
+            case "^q-|BFE]$xye4s-;/_V@":
+            case "redPlayer":return img`
+. . . . . . f f f f . . . . . . 
+. . . . f f f 2 2 f f f . . . . 
+. . . f f 2 2 2 2 2 2 f f . . . 
+. . f f 2 2 2 2 2 2 2 2 f f . . 
+. . f 2 2 2 2 2 2 2 2 2 2 f . . 
+. f f 2 2 2 2 2 2 2 2 2 2 f f . 
+. f 2 2 2 2 2 2 2 2 2 2 2 2 f . 
+. f f f f f f f f f f f f f f . 
+. . f 2 2 3 f 2 2 f 3 2 2 f . . 
+. . f f 2 1 f 2 2 f 1 2 f f . . 
+. . . f f 2 2 2 2 2 2 f f . . . 
+. . . . f f 2 2 2 2 f f . . . . 
+. . . . . f f f f f f . . . . . 
+. . . . f 2 2 2 2 2 2 f . . . . 
+. . . f f 2 2 2 2 2 2 f f . . . 
+. . . f 2 2 2 2 2 2 2 2 f . . . 
+`;
+            case "P!pvtge!xBB7yX%qkgH;":
+            case "bluePlayer":return img`
+. . . . . . f f f f . . . . . . 
+. . . . f f f 8 8 f f f . . . . 
+. . . f f 8 8 8 8 8 8 f f . . . 
+. . f f 8 8 8 8 8 8 8 8 f f . . 
+. . f 8 8 8 8 8 8 8 8 8 8 f . . 
+. f f 8 8 8 8 8 8 8 8 8 8 f f . 
+. f 8 8 8 8 8 8 8 8 8 8 8 8 f . 
+. f f f f f f f f f f f f f f . 
+. . f 8 8 9 f 8 8 f 9 8 8 f . . 
+. . f f 8 1 f 8 8 f 1 8 f f . . 
+. . . f f 8 8 8 8 8 8 f f . . . 
+. . . . f f 8 8 8 8 f f . . . . 
+. . . . . f f f f f f . . . . . 
+. . . . f 8 8 8 8 8 8 f . . . . 
+. . . f f 8 8 8 8 8 8 f f . . . 
+. . . f 8 8 8 8 8 8 8 8 f . . . 
 `;
         }
         return null;
