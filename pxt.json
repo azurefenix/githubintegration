@@ -2,8 +2,7 @@
     "name": "unit5-mock_pt",
     "description": "",
     "dependencies": {
-        "device": "*",
-        "multiplayer": "*"
+        "device": "*"
     },
     "files": [
         "main.blocks",

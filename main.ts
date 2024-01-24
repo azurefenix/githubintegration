@@ -1,16 +1,46 @@
+sprites.onDestroyed(SpriteKind.Food, function (sprite) {
+    reprize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
+    prizeLoc.push(newPrizeLoc())
+    tiles.placeOnTile(reprize, prizeLoc.pop())
+})
 function newPrizeLoc () {
+    pathTiles = [tiles.getTilesByType(assets.tile`myTile`)]
+    prizePosHolder = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Food)
     while (true) {
-        tiles.placeOnRandomTile(prize, assets.tile`myTile`)
-        for (let value of prizeLoc) {
-            if (value == prize.tilemapLocation()) {
-                break;
-            }
-            if (prize.tilemapLocation() == p1.tilemapLocation() || prize.tilemapLocation() == p2.tilemapLocation()) {
-            	
+        col = randint(0, 23)
+        row = randint(0, 17)
+        tiles.placeOnTile(prizePosHolder, tiles.getTileLocation(col, row))
+        if (tiles.tileAtLocationEquals(tiles.getTileLocation(col, row), assets.tile`myTile`)) {
+            if (prizePosHolder.tilemapLocation() != p1.tilemapLocation() && prizePosHolder.tilemapLocation() != p2.tilemapLocation()) {
+                count2 = 0
+                for (let value of prizeLoc) {
+                    if (value == prize.tilemapLocation()) {
+                        count2 += 1
+                    }
+                }
+                if (count2 == 0) {
+                    return prizePosHolder.tilemapLocation()
+                }
             }
         }
     }
-    prizeLoc.push(prize.tilemapLocation())
 }
 function locPossibilities () {
     adjLoc = []
@@ -92,9 +122,6 @@ info.player1.onScore(5, function () {
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.bubbles, 500)
-    prize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
-    newPrizeLoc()
-    tiles.placeOnTile(prize, prizeLoc.pop())
     if (sprite == p1) {
         info.player1.changeScoreBy(1)
     } else {
@@ -115,6 +142,12 @@ let visitLoc: tiles.Location[] = []
 let cursor: Sprite = null
 let currentLoc: tiles.Location = null
 let adjLoc: tiles.Location[] = []
+let count2 = 0
+let row = 0
+let col = 0
+let prizePosHolder: Sprite = null
+let pathTiles: tiles.Location[][] = []
+let reprize: Sprite = null
 let prizeLoc: tiles.Location[] = []
 let prize: Sprite = null
 let p2: Sprite = null
@@ -186,8 +219,9 @@ let cam = sprites.create(img`
 scene.cameraFollowSprite(cam)
 createMaze()
 prize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
-tiles.placeOnRandomTile(prize, assets.tile`myTile`)
+tiles.placeOnTile(prize, tiles.getTileLocation(0, 0))
 prizeLoc = [prize.tilemapLocation()]
+tiles.placeOnTile(prize, newPrizeLoc())
 game.onUpdate(function () {
     cam.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
 })
