@@ -1,9 +1,9 @@
 sprites.onDestroyed(SpriteKind.Food, function (sprite) {
     reprize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
-    prizeLoc.push(newPrizeLoc())
+    prizeLoc.push(newPrizeLoc(prizeLoc))
     tiles.placeOnTile(reprize, prizeLoc.pop())
 })
-function newPrizeLoc () {
+function newPrizeLoc (list: tiles.Location[]) {
     pathTiles = [tiles.getTilesByType(assets.tile`myTile`)]
     prizePosHolder = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -30,7 +30,7 @@ function newPrizeLoc () {
         if (tiles.tileAtLocationEquals(tiles.getTileLocation(col, row), assets.tile`myTile`)) {
             if (prizePosHolder.tilemapLocation() != p1.tilemapLocation() && prizePosHolder.tilemapLocation() != p2.tilemapLocation()) {
                 count2 = 0
-                for (let value of prizeLoc) {
+                for (let value of list) {
                     if (value == prize.tilemapLocation()) {
                         count2 += 1
                     }
@@ -189,7 +189,8 @@ createMaze()
 prize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
 tiles.placeOnTile(prize, tiles.getTileLocation(0, 0))
 prizeLoc = [prize.tilemapLocation()]
-tiles.placeOnTile(prize, newPrizeLoc())
+tiles.placeOnTile(prize, newPrizeLoc(prizeLoc))
+prizeLoc.push(prize.tilemapLocation())
 game.onUpdate(function () {
     cam.setPosition((p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
 })
