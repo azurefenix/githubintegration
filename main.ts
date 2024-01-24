@@ -112,7 +112,7 @@ function createMaze () {
     wallTiles = tiles.getTilesByType(assets.tile`transparency16`)
     for (let wallTile of wallTiles) {
         tiles.setTileAt(wallTile, assets.tile`myTile0`)
-        tiles.setWallAt(wallTile, false)
+        tiles.setWallAt(wallTile, true)
     }
 }
 info.player1.onScore(5, function () {
