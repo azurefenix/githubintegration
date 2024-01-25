@@ -1,12 +1,12 @@
 info.player1.onScore(1, function () {
-    pause(2000)
+    pause(100)
     end = true
     sprites.destroyAllSpritesOfKind(SpriteKind.Player)
     sprites.destroyAllSpritesOfKind(SpriteKind.Food)
-    scene.centerCameraAt(80, 60)
+    scene.centerCameraAt(0, 0)
     tiles.setCurrentTilemap(tilemap`level6`)
     game.splash("Red player wins!")
-    pause(1000)
+    pause(500)
     game.reset()
 })
 sprites.onDestroyed(SpriteKind.Food, function (sprite) {
@@ -73,14 +73,14 @@ function locPossibilities () {
     return adjLoc
 }
 info.player2.onScore(1, function () {
-    pause(2000)
+    pause(1000)
     end = true
     sprites.destroyAllSpritesOfKind(SpriteKind.Player)
     sprites.destroyAllSpritesOfKind(SpriteKind.Food)
     scene.centerCameraAt(0, 0)
     tiles.setCurrentTilemap(tilemap`level4`)
     game.splash("Blue player wins!")
-    pause(1000)
+    pause(500)
     game.reset()
 })
 function createMaze () {
@@ -136,7 +136,7 @@ function createMaze () {
     wallTiles = tiles.getTilesByType(assets.tile`transparency16`)
     for (let wallTile of wallTiles) {
         tiles.setTileAt(wallTile, assets.tile`myTile0`)
-        tiles.setWallAt(wallTile, false)
+        tiles.setWallAt(wallTile, true)
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
@@ -167,6 +167,7 @@ let prize: Sprite = null
 let p2: Sprite = null
 let p1: Sprite = null
 let end = false
+tiles.setCurrentTilemap(tilemap`level7`)
 end = false
 game.splash("Find 5 potions to win!")
 info.player1.setScore(0)
