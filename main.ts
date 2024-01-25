@@ -1,7 +1,20 @@
+info.player1.onScore(1, function () {
+    pause(2000)
+    end = true
+    sprites.destroyAllSpritesOfKind(SpriteKind.Player)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Food)
+    scene.centerCameraAt(80, 60)
+    tiles.setCurrentTilemap(tilemap`level6`)
+    game.splash("Red player wins!")
+    pause(1000)
+    game.reset()
+})
 sprites.onDestroyed(SpriteKind.Food, function (sprite) {
-    reprize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
-    prizeLoc.push(newPrizeLoc(prizeLoc))
-    tiles.placeOnTile(reprize, prizeLoc.pop())
+    if (!(end)) {
+        reprize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
+        prizeLoc.push(newPrizeLoc(prizeLoc))
+        tiles.placeOnTile(reprize, prizeLoc.pop())
+    }
 })
 function newPrizeLoc (list: tiles.Location[]) {
     pathTiles = [tiles.getTilesByType(assets.tile`myTile`)]
@@ -59,6 +72,17 @@ function locPossibilities () {
     }
     return adjLoc
 }
+info.player2.onScore(1, function () {
+    pause(2000)
+    end = true
+    sprites.destroyAllSpritesOfKind(SpriteKind.Player)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Food)
+    scene.centerCameraAt(0, 0)
+    tiles.setCurrentTilemap(tilemap`level4`)
+    game.splash("Blue player wins!")
+    pause(1000)
+    game.reset()
+})
 function createMaze () {
     tiles.setCurrentTilemap(tilemap`level1`)
     cursor = sprites.create(img`
@@ -112,14 +136,9 @@ function createMaze () {
     wallTiles = tiles.getTilesByType(assets.tile`transparency16`)
     for (let wallTile of wallTiles) {
         tiles.setTileAt(wallTile, assets.tile`myTile0`)
-        tiles.setWallAt(wallTile, true)
+        tiles.setWallAt(wallTile, false)
     }
 }
-info.player1.onScore(5, function () {
-    game.splash("Player 1 wins!")
-    pause(2000)
-    game.reset()
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.bubbles, 500)
     if (sprite == p1) {
@@ -127,11 +146,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     } else {
         info.player2.changeScoreBy(1)
     }
-})
-info.player2.onScore(5, function () {
-    game.splash("Player 2 wins!")
-    pause(2000)
-    game.reset()
 })
 let wallTiles: tiles.Location[] = []
 let count = 0
@@ -152,18 +166,15 @@ let prizeLoc: tiles.Location[] = []
 let prize: Sprite = null
 let p2: Sprite = null
 let p1: Sprite = null
-namespace userconfig {
-    export const ARCADE_SCREEN_WIDTH = 300
-    export const ARCADE_SCREEN_HEIGHT = 240
-}
+let end = false
+end = false
+game.splash("Find 5 potions to win!")
 info.player1.setScore(0)
 info.player2.setScore(0)
 p1 = sprites.create(assets.image`redPlayer`, SpriteKind.Player)
-p1.setPosition(7, 7)
 controller.moveSprite(p1)
 p1.setStayInScreen(true)
 p2 = sprites.create(assets.image`bluePlayer`, SpriteKind.Player)
-p2.setPosition(7, 7)
 controller.player2.moveSprite(p2)
 p2.setStayInScreen(true)
 let cam = sprites.create(img`
@@ -186,6 +197,8 @@ let cam = sprites.create(img`
     `, SpriteKind.Player)
 scene.cameraFollowSprite(cam)
 createMaze()
+tiles.placeOnTile(p1, tiles.getTileLocation(0, 0))
+tiles.placeOnTile(p2, tiles.getTileLocation(0, 0))
 prize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
 tiles.placeOnTile(prize, tiles.getTileLocation(0, 0))
 prizeLoc = [prize.tilemapLocation()]
