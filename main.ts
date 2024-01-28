@@ -1,14 +1,3 @@
-info.player1.onScore(1, function () {
-    pause(100)
-    end = true
-    sprites.destroyAllSpritesOfKind(SpriteKind.Player)
-    sprites.destroyAllSpritesOfKind(SpriteKind.Food)
-    scene.centerCameraAt(0, 0)
-    tiles.setCurrentTilemap(tilemap`level6`)
-    game.splash("Red player wins!")
-    pause(500)
-    game.reset()
-})
 sprites.onDestroyed(SpriteKind.Food, function (sprite) {
     if (!(end)) {
         reprize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
@@ -72,17 +61,6 @@ function locPossibilities () {
     }
     return adjLoc
 }
-info.player2.onScore(1, function () {
-    pause(1000)
-    end = true
-    sprites.destroyAllSpritesOfKind(SpriteKind.Player)
-    sprites.destroyAllSpritesOfKind(SpriteKind.Food)
-    scene.centerCameraAt(0, 0)
-    tiles.setCurrentTilemap(tilemap`level4`)
-    game.splash("Blue player wins!")
-    pause(500)
-    game.reset()
-})
 function createMaze () {
     tiles.setCurrentTilemap(tilemap`level1`)
     cursor = sprites.create(img`
@@ -139,6 +117,17 @@ function createMaze () {
         tiles.setWallAt(wallTile, true)
     }
 }
+info.player1.onScore(5, function () {
+    pause(1000)
+    end = true
+    sprites.destroyAllSpritesOfKind(SpriteKind.Player)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Food)
+    scene.centerCameraAt(0, 0)
+    tiles.setCurrentTilemap(tilemap`level6`)
+    game.splash("Red player wins!")
+    pause(500)
+    game.reset()
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.bubbles, 500)
     if (sprite == p1) {
@@ -146,6 +135,17 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     } else {
         info.player2.changeScoreBy(1)
     }
+})
+info.player2.onScore(5, function () {
+    pause(1000)
+    end = true
+    sprites.destroyAllSpritesOfKind(SpriteKind.Player)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Food)
+    scene.centerCameraAt(0, 0)
+    tiles.setCurrentTilemap(tilemap`level4`)
+    game.splash("Blue player wins!")
+    pause(500)
+    game.reset()
 })
 let wallTiles: tiles.Location[] = []
 let count = 0
