@@ -6,7 +6,6 @@ sprites.onDestroyed(SpriteKind.Food, function (sprite) {
     }
 })
 function newPrizeLoc (list: tiles.Location[]) {
-    pathTiles = [tiles.getTilesByType(assets.tile`myTile`)]
     prizePosHolder = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -160,7 +159,6 @@ let count2 = 0
 let row = 0
 let col = 0
 let prizePosHolder: Sprite = null
-let pathTiles: tiles.Location[][] = []
 let reprize: Sprite = null
 let prizeLoc: tiles.Location[] = []
 let prize: Sprite = null
