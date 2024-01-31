@@ -32,7 +32,7 @@ function newPrizeLoc (list: tiles.Location[]) {
             if (prizePosHolder.tilemapLocation() != p1.tilemapLocation() && prizePosHolder.tilemapLocation() != p2.tilemapLocation()) {
                 count2 = 0
                 for (let value of list) {
-                    if (value == prize.tilemapLocation()) {
+                    if (value == prizePosHolder.tilemapLocation()) {
                         count2 += 1
                     }
                 }
@@ -161,7 +161,6 @@ let col = 0
 let prizePosHolder: Sprite = null
 let reprize: Sprite = null
 let prizeLoc: tiles.Location[] = []
-let prize: Sprite = null
 let p2: Sprite = null
 let p1: Sprite = null
 let end = false
@@ -198,7 +197,7 @@ scene.cameraFollowSprite(cam)
 createMaze()
 tiles.placeOnTile(p1, tiles.getTileLocation(0, 0))
 tiles.placeOnTile(p2, tiles.getTileLocation(0, 0))
-prize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
+let prize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
 tiles.placeOnTile(prize, tiles.getTileLocation(0, 0))
 prizeLoc = [prize.tilemapLocation()]
 tiles.placeOnTile(prize, newPrizeLoc(prizeLoc))
