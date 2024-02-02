@@ -1,3 +1,11 @@
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    wallTiles = tiles.getTilesByType(assets.tile`myTile0`)
+    for (let wallTile of wallTiles) {
+        tiles.setTileAt(wallTile, assets.tile`redTile`)
+        tiles.setWallAt(wallTile, true)
+        cheat = false
+    }
+})
 sprites.onDestroyed(SpriteKind.Food, function (sprite) {
     if (!(end)) {
         reprize = sprites.create(assets.image`myImage0`, SpriteKind.Food)
@@ -43,6 +51,14 @@ function newPrizeLoc (list: tiles.Location[]) {
         }
     }
 }
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    wallTiles = tiles.getTilesByType(assets.tile`redTile`)
+    for (let wallTile of wallTiles) {
+        tiles.setTileAt(wallTile, assets.tile`myTile0`)
+        tiles.setWallAt(wallTile, true)
+        cheat = false
+    }
+})
 function locPossibilities () {
     adjLoc = []
     currentLoc = cursor.tilemapLocation()
@@ -146,7 +162,6 @@ info.player2.onScore(5, function () {
     pause(500)
     game.reset()
 })
-let wallTiles: tiles.Location[] = []
 let count = 0
 let temp: tiles.Location = null
 let possibleLocs: tiles.Location[] = []
@@ -160,12 +175,14 @@ let row = 0
 let col = 0
 let prizePosHolder: Sprite = null
 let reprize: Sprite = null
+let end = false
+let wallTiles: tiles.Location[] = []
 let prizeLoc: tiles.Location[] = []
 let p2: Sprite = null
 let p1: Sprite = null
-let end = false
+let cheat = false
+cheat = true
 tiles.setCurrentTilemap(tilemap`level7`)
-end = false
 game.splash("Find 5 potions to win!")
 info.player1.setScore(0)
 info.player2.setScore(0)
